@@ -1,0 +1,28 @@
+spring:
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    #전송 쿼리 확인
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      data-locations: classpath:data.sql
+      mode: always
+
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/h2db/lib
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  h2:
+    console:
+      enabled: true
+
