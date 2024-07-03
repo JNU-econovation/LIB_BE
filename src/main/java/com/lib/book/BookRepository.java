@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
@@ -17,4 +18,18 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     @Query(value = "SELECT * FROM book WHERE customed = false  AND officialRating >= 9.0 ORDER BY RAND() LIMIT 12", nativeQuery = true)
     List<Book> findByBookRating();
+
+//    @Query("SELECT b from Book b where b.ISBN = :ISBN")
+    Optional<Book> findByISBN(String ISBN);
+
+//메인화면 AI책 받기
+    @Query(value = "SELECT b.ISBN FROM book b " +
+            "JOIN record r ON b.book_id = r.book_id " +
+            "JOIN bookshelf bs ON b.book_id = bs.book_id " +
+            "WHERE r.member_id = :memberID OR bs.member_id = :memberID", nativeQuery = true)
+    List<String> findByMemberId(Long memberID);
+
+
+    @Query(value = "SELECT b FROM Book b WHERE b.bookId= :bookId")
+    Optional<Book> findAllBooks(Long bookId);
 }

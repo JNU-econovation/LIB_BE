@@ -1,28 +1,25 @@
 spring:
-
-  jpa:
-    defer-datasource-initialization: true
-    hibernate:
-      ddl-auto: create
-    #전송 쿼리 확인
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-
   sql:
     init:
       data-locations: classpath:data.sql
       mode: always
-
+  main:
+    allow-bean-definition-overriding: true
 
   datasource:
-    url: jdbc:h2:tcp://localhost/~/h2db/lib
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
-
+    url: jdbc:mysql://localhost:3306/lib # your_database_name을 실제 데이터베이스 이름으로 변경
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
   h2:
     console:
       enabled: true
-
+  jpa:
+    hibernate:
+      ddl-auto: create # 개발 환경에서는 create, production 환경에서는 update 또는 validate를 권장
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect  # MySQL 방언 추가
+    defer-datasource-initialization: true

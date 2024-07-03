@@ -3,8 +3,9 @@ package com.lib.record;
 import com.lib.BaseEntity;
 import com.lib.book.Book;
 import com.lib.member.Member;
-import jakarta.persistence.*;
 import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -19,7 +20,7 @@ public class Record extends BaseEntity {
 
     //회원, 책 아이디 fk
     @ManyToOne
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id", nullable = true)
     private Member member;
 
     @ManyToOne
@@ -32,11 +33,14 @@ public class Record extends BaseEntity {
     @Column(nullable = false)
     private Integer rating;
 
-   /* @Builder
-    public Record(String bookCover,String bookName, String author, String publisher, String categoryId, Integer memberId) {
-        this.bookCover=bookCover;
-        this.getBookCover()=book
+   @Builder
+    public Record(Long recordId,Member member, Book book, String recordContent, Integer rating) {
+       this.recordId=recordId;
+       this.book=book;
+        this.member=member;
+        this.recordContent=recordContent;
+        this.rating=rating;
+    }
 
-    }*/
 }
 

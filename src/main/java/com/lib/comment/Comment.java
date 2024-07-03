@@ -3,10 +3,11 @@ package com.lib.comment;
 import com.lib.BaseEntity;
 import com.lib.member.Member;
 import com.lib.book.Book;
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
 @Getter

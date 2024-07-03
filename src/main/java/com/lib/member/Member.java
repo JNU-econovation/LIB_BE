@@ -5,11 +5,11 @@ import com.lib.record.Record;
 import com.lib.bookshelf.Bookshelf;
 import com.lib.category.Category;
 import com.lib.comment.Comment;
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

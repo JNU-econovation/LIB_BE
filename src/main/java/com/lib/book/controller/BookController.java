@@ -1,12 +1,10 @@
 package com.lib.book.controller;
 
-import com.lib.book.Book;
 import com.lib.book.dto.AddBookRequest;
-import com.lib.book.dto.ReadBookDetailRequest;
+import com.lib.book.dto.MainAiRecommendResponse;
 import com.lib.book.dto.ReadBookDetailResponse;
 import com.lib.book.dto.ReadBookMainResponse;
 import com.lib.book.service.BookService;
-import com.lib.category.Category;
 import com.lib.utils.ApiResponse;
 import com.lib.utils.ApiResponseGenerator;
 import lombok.RequiredArgsConstructor;
@@ -48,10 +46,27 @@ public class BookController {
 
     //책 정보 추가 메서드(create)(기록할때 같이 들어가야함)
     @PostMapping("/records")
-    public ApiResponse<ApiResponse.CustomBody<AddBookRequest>> addBookRequest(@RequestBody AddBookRequest book){
-        Book savedBook = bookService.save(book);
-        return ApiResponseGenerator.success(savedBook, HttpStatus.OK)
+    public ResponseEntity<?> addBookRequest(@RequestBody AddBookRequest book){
+        bookService.save(book);
+        return ApiResponseGenerator.success(HttpStatus.OK);
     }
+
+    //메인페이지 ai 요청
+    @PostMapping("recommand/detail/{bookId}")
+    public ApiResponse<ApiResponse.CustomBody<List<ReadBookMainResponse>>>findDetailAiBook(@PathVariable("bookId") Long bookId){
+        List<ReadBookMainResponse> responseList=bookService.findByAiRecommendDetail(bookId);
+        return ApiResponseGenerator.success(responseList, HttpStatus.OK);
+    }
+
+   //상세페이지 ai 요청
+    @PostMapping("/recommend/main")
+    public ApiResponse<ApiResponse.CustomBody<List<MainAiRecommendResponse>>>findMainAiBook(){
+        Long memberId = 1L;//바꿔야함
+        List<MainAiRecommendResponse> responseList=bookService.findByAiRecommendMain(memberId);
+        return ApiResponseGenerator.success(responseList, HttpStatus.OK);
+    }
+
+
     //책 삭제(기록이 삭제될때 같이 삭제됨)
 
 }

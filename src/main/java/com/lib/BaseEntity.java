@@ -1,9 +1,9 @@
 package com.lib;
 
-import jakarta.persistence.Column;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 public class BaseEntity {
@@ -15,4 +15,7 @@ public class BaseEntity {
     @LastModifiedDate
     @Column(updatable = true)
     private LocalDateTime updatedDate;
+    private LocalDateTime isDelete;
+
+
 }

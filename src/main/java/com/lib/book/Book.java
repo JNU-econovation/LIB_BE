@@ -5,12 +5,12 @@ import com.lib.category.Category;
 import com.lib.record.Record;
 import com.lib.bookshelf.Bookshelf;
 import com.lib.comment.Comment;
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,8 +42,8 @@ public class Book extends BaseEntity {
     @Column(nullable = false)// 서재 추가 여부
     private boolean isAdded;
 
-    @Column(nullable = false)
-    private Integer ISBN;
+    @Column(nullable = true)
+    private String ISBN;
 
     @Column(name=Prefix+"_name", nullable = false)
     private String bookName;
@@ -58,7 +58,7 @@ public class Book extends BaseEntity {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @Column(name=Prefix+"_explain",nullable = false, columnDefinition = "TEXT")
+    @Column(name=Prefix+"_explain",nullable = true, columnDefinition = "TEXT")
     private String bookExplain;
 
     @Column(nullable = false)
@@ -75,12 +75,11 @@ public class Book extends BaseEntity {
 
 
     @Builder
-    public Book(Long bookId,Boolean customed, Boolean isAdded, Integer ISBN, String bookTitle, String bookCover, String author, Category category, String publisher,String bookExplain, Integer rating, Integer ratingOfficial){
-        this.bookId=bookId;
+    public Book(Boolean customed, Boolean isAdded,String ISBN, String bookName, String bookCover, String author, Category category, String publisher,String bookExplain, Integer rating, Integer ratingOfficial){
         this.customed=customed;
         this.isAdded=isAdded;
         this.ISBN=ISBN;
-        this.bookName=getBookName();
+        this.bookName=bookName;
         this.bookCover=bookCover;
         this.author=author;
         this.category=category;

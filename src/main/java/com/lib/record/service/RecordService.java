@@ -1,15 +1,45 @@
 package com.lib.record.service;
 
+import com.lib.book.Book;
 import com.lib.book.BookRepository;
+import com.lib.record.Record;
+import com.lib.record.RecordRepository;
+import com.lib.record.dto.ReadRecordResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RecordService {
     private final BookRepository bookRepository;
+    private final RecordRepository recordRepository;
 
     //(마이페이지)기록 전체 조회(read)
+    //(기록테이블)회원아이디를 이용해 '기록 내용', '기록 아이디','책 아이디' 찾기(리스트)
+    //책 아이디 리스트를 반복문으로 돌려서 (책 테이블)'제목', '커버','저자' 값을 가져옴
+    public List<ReadRecordResponse> findRecordWholeBook(Long memberId){
+
+        List<Record> recordList =recordRepository.findRecordByMemberId(memberId);
+        if (recordList.isEmpty()){
+            throw new IllegalArgumentException("not found"+memberId);
+        }
+
+
+        List<ReadRecordResponse> responseList=new ArrayList<>();
+        for (Record record : recordList) {
+            Book eachBook = bookRepository.findAllBooks(record.getBook().getBookId()).orElseThrow();
+            ReadRecordResponse response =ReadRecordResponse.from(eachBook, record);
+            responseList.add(response);
+            /*if (eachRecord.isPresent()){
+                Record
+             */
+        }
+        return responseList;
+    }
 
     //(메인페이지-5개)기록 조회(read)
 
