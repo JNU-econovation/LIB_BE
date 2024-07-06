@@ -1,6 +1,7 @@
 package com.lib.record.controller;
 
 import com.lib.book.dto.ReadBookDetailResponse;
+import com.lib.record.dto.ReadRecordMainResponse;
 import com.lib.record.dto.ReadRecordResponse;
 import com.lib.record.service.RecordService;
 import com.lib.utils.ApiResponse;
@@ -16,8 +17,9 @@ import java.util.List;
 @RestController
 
 public class RecordController {
-
     private final RecordService recordService;
+
+    //(기록페이지) 전체 기록 조회
     @GetMapping("/records/books")
     public ApiResponse<ApiResponse.CustomBody<List<ReadRecordResponse>>> findRecordWholeBook(){
         Long memberId = 1L;
@@ -27,4 +29,19 @@ public class RecordController {
 
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
+
+    //(메인페이지) 기록히스토리 조회
+    @GetMapping("/rcords/main")
+    public ApiResponse<ApiResponse.CustomBody<List<ReadRecordMainResponse>>> findRecordMain(){
+        Long memberId = 1L;
+        List<ReadRecordMainResponse> response=recordService.findRecordMainBook(memberId);
+        return ApiResponseGenerator.success(response, HttpStatus.OK);
+    }
+
+    //(작성페이지) 책 정보및 기록 내용 조회
+    /*@GetMapping("/records/{bookId}")
+    public ApiResponse<ApiResponse.CustomBody<List<ReadBookDetailResponse>>> findBookDetail(@PathVariable("bookId") Long bookId){
+
+    }
+     */
 }

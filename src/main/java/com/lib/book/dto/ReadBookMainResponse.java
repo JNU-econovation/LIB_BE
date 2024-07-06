@@ -14,6 +14,7 @@ public class ReadBookMainResponse {
     private String bookName;
     private String authorPub;
     public ReadBookMainResponse(Book book){
+        this.bookId = book.getBookId();
         this.bookName=book.getBookName();
         this.bookCover=book.getBookCover();
         this.authorPub=authorPub(book);

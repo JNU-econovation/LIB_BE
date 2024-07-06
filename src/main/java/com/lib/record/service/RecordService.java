@@ -4,6 +4,7 @@ import com.lib.book.Book;
 import com.lib.book.BookRepository;
 import com.lib.record.Record;
 import com.lib.record.RecordRepository;
+import com.lib.record.dto.ReadRecordMainResponse;
 import com.lib.record.dto.ReadRecordResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,16 +33,29 @@ public class RecordService {
         List<ReadRecordResponse> responseList=new ArrayList<>();
         for (Record record : recordList) {
             Book eachBook = bookRepository.findAllBooks(record.getBook().getBookId()).orElseThrow();
-            ReadRecordResponse response =ReadRecordResponse.from(eachBook, record);
+            ReadRecordResponse response =new ReadRecordResponse(eachBook, record);
             responseList.add(response);
-            /*if (eachRecord.isPresent()){
-                Record
-             */
         }
         return responseList;
     }
 
     //(메인페이지-5개)기록 조회(read)
+    public List<ReadRecordMainResponse> findRecordMainBook(Long memberId){
+
+        List<Record> recordList =recordRepository.findRecordByMemberId(memberId);
+        if (recordList.isEmpty()){
+            throw new IllegalArgumentException("not found"+memberId);
+        }
+
+
+        List<ReadRecordMainResponse> responseList=new ArrayList<>();
+        for (Record record : recordList) {
+            Book eachBook = bookRepository.findAllBooks(record.getBook().getBookId()).orElseThrow();
+            ReadRecordMainResponse response =new ReadRecordMainResponse(eachBook, record);
+            responseList.add(response);
+        }
+        return responseList;
+    }
 
     //세부 기록 조회(read)
 

@@ -11,19 +11,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 @Builder(toBuilder = true)
-public class ReadRecordResponse {
+public class ReadRecordMainResponse {
     private Long recordId;//
     private String bookName;
     private String bookCover;
     private String author;
     private String recordContent;
 
-    public ReadRecordResponse (Book book, Record record){
-        this.bookName=book.getBookName();
-        this.author=book.getAuthor();
-        this.recordContent=record.getRecordContent();
+    public ReadRecordMainResponse (Book book, Record record){
         this.recordId=record.getRecordId();
-    }
+        this.bookCover=book.getBookCover();
+        this.recordContent=record.getRecordContent();
+        this.bookName=book.getBookName();//
+        this.author=book.getAuthor();//
 
+    }
 
 }

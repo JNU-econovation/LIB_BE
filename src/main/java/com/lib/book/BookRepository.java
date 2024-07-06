@@ -16,7 +16,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query(value = "SELECT * FROM book WHERE category_id= :categoryId AND customed = false ORDER BY RAND() LIMIT 12", nativeQuery = true)
     List<Book> findRandomByCategory(@Param("categoryId") long categoryId);
 
-    @Query(value = "SELECT * FROM book WHERE customed = false  AND officialRating >= 9.0 ORDER BY RAND() LIMIT 12", nativeQuery = true)
+    @Query(value = "SELECT * FROM book WHERE customed = false  AND rating_official >= 9.0 ORDER BY RAND() LIMIT 12", nativeQuery = true)
     List<Book> findByBookRating();
 
 //    @Query("SELECT b from Book b where b.ISBN = :ISBN")
