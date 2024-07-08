@@ -1,0 +1,7 @@
+POST http://localhost:8080/members/login
+Content-type: application/json
+
+{
+  "id": "admin",
+  "password": "1234"
+}

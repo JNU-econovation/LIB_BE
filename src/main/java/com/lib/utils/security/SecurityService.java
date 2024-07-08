@@ -1,3 +1,4 @@
+
 package com.lib.utils.security;
 
 import io.jsonwebtoken.Claims;
@@ -12,10 +13,10 @@ import java.util.Date;
 
 @Service
 public class SecurityService {
-    private static final String SECRET_KEY="sdfsfsdfasdfasdfassd";
+    private static final String SECRET_KEY="sdfsfsdfasdfasasdakfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjsssssssssssssssssssssssss";
 
-    //로그인 서비스 던질때 같이
-    public String creatToken(String subject, long expTime) {
+    //로그인 reponse로 같이
+    public String createToken(Long id, long expTime) {
         if (expTime <= 0) {
             throw new RuntimeException("expTime must be greater than 0");
 
@@ -25,7 +26,7 @@ public class SecurityService {
         Key signingKey = new SecretKeySpec(secretKeyBytes, signatureAlgorithm.getJcaName());
 
         return Jwts.builder()
-                .setSubject(subject)
+                .setSubject(id.toString())
                 .signWith(signingKey, signatureAlgorithm)
                 .setExpiration(new Date(System.currentTimeMillis()+expTime))
                 .compact();

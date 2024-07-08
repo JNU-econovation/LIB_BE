@@ -2,6 +2,10 @@ INSERT INTO category (category_type) VALUES
 ('경제 경영'),('IT 모바일'),('가정 살림'),('건강 취미'),('국어 외국어 사전'),('대학교재'),('만화/라이트노벨'),('사회 정치'),
 ('소설/시/희곡'),('수험서 자격증'),('어린이'),('에세이'),('역사'),('예술'),('유아'),('인문'),('자기계발'),('자연과학'),('잡지'),('청소년');
 
+--admin멤버
+INSERT INTO member (member_loginid, pw, nickname, category_id, reset_cycle, goal_number)
+VALUES ('admin', '1234', 'lib', 2, 1, 2);
+
 --북 테이블
 
 INSERT INTO book (

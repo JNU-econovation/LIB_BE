@@ -1,29 +1,27 @@
+/*
 package com.lib.utils.security;
 
+import com.lib.member.dto.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/security")
 public class SecurityController {
     @Autowired
     private SecurityService securityService;
 
-    @GetMapping("/create/token")
-    public Map<String, Object> createToken(@RequestParam(value = "subject")String subject) {
-        String token = securityService.creatToken(subject, (2 * 1000 * 60));
+    @PostMapping("/members/login")
+    public Map<String, Object> createToken(@RequestBody LoginRequest loginRequest) {
+        String token = securityService.createToken(loginRequest, (2 * 1000 * 60));
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("result", token);
         return map;
     }
-    @GetMapping("/get/subject")
+    @RequestMapping(value = {"/remmend/main","/records/**", "comments/**","/members/**","/bookshelves","/calender"})
     public Map<String, Object> getSubject(@RequestParam(value = "token")String token) {
         String subject = securityService.getSubject(token);
         Map<String, Object> map = new LinkedHashMap<>();
@@ -32,3 +30,5 @@ public class SecurityController {
     }
 
 }
+
+ */

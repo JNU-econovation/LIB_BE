@@ -1,0 +1,16 @@
+POST http://localhost:8080/members/login
+Content-type: application/json
+Content-Length: 41
+User-Agent: IntelliJ HTTP Client/IntelliJ IDEA 2024.1.4
+Accept-Encoding: br, deflate, gzip, x-gzip
+Accept: */*
+
+{
+  "id": "admin",
+  "password": "1234"
+}
+
+<> 2024-07-08T222828.200.json
+
+###
+

@@ -6,6 +6,7 @@ import com.lib.bookshelf.Bookshelf;
 import com.lib.category.Category;
 import com.lib.comment.Comment;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -53,6 +54,18 @@ public class Member extends BaseEntity {
 
     @Column(nullable = false)
     private String nickname;
+
+
+    @Builder
+    public Member(Long id,String memberLoginId, String pw, Category category, Integer resetCycle,Integer goalNumber,String nickname){
+        this.id=id;
+        this.memberLoginId=memberLoginId;
+        this.pw=pw;
+        this.category=category;
+        this.resetCycle=resetCycle;
+        this.goalNumber=goalNumber;
+        this.nickname=nickname;
+    }
 
 
 
