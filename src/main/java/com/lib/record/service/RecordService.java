@@ -24,7 +24,7 @@ public class RecordService {
     //책 아이디 리스트를 반복문으로 돌려서 (책 테이블)'제목', '커버','저자' 값을 가져옴
     public List<ReadRecordResponse> findRecordWholeBook(Long memberId){
 
-        List<Record> recordList =recordRepository.findRecordByMemberId(memberId);
+        List<Record> recordList =recordRepository.findRecordById(memberId);
         if (recordList.isEmpty()){
             throw new IllegalArgumentException("not found"+memberId);
         }
@@ -40,11 +40,11 @@ public class RecordService {
     }
 
     //(메인페이지-5개)기록 조회(read)
-    public List<ReadRecordMainResponse> findRecordMainBook(Long memberId){
+    public List<ReadRecordMainResponse> findRecordMainBook(Long Id){
 
-        List<Record> recordList =recordRepository.findRecordByMemberId(memberId);
+        List<Record> recordList =recordRepository.findRecordById(Id);
         if (recordList.isEmpty()){
-            throw new IllegalArgumentException("not found"+memberId);
+            throw new IllegalArgumentException("not found"+Id);
         }
 
 

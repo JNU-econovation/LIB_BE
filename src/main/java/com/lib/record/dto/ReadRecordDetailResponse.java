@@ -13,17 +13,19 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class ReadRecordDetailResponse {
     private Long recordId;
-    private String bookName;
     private String bookCover;
+    private String bookName;
     private String authorCatePub;
     private Integer rating;
     private String recordContent;
 
     public ReadRecordDetailResponse(Book book, Record record){
+        this.recordId=record.getRecordId();
+        this.bookCover=book.getBookCover();
         this.bookName=book.getBookName();
         this.authorCatePub=authorCatePub(book);
+        this.rating=book.getRating();
         this.recordContent=record.getRecordContent();
-        this.recordId=record.getRecordId();
     }
 
     private String authorCatePub(Book book){

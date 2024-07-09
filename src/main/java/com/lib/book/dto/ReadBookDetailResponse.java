@@ -21,7 +21,6 @@ public class ReadBookDetailResponse {
         this.authorCate=authorCate(book);
         this.publisher=book.getPublisher();
         this.rating=book.getRating();
-        this.isAdded=book.isAdded();
         this.bookExplain=book.getBookExplain();
     }
 

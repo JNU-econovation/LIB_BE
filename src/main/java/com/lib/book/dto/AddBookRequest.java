@@ -15,7 +15,6 @@ public class AddBookRequest {
     private String bookName;
     private String author;
     private Long categoryId;
-    private String publisher;
     private Integer rating;
     private String recordContent;
 
@@ -25,9 +24,7 @@ public class AddBookRequest {
             .bookName(bookName)
             .author(author)
             .category(category)
-            .publisher(publisher)
             .rating(rating)//나중에 바꾸기(평균)
-            .isAdded(false)//나중에 바꾸기
             .customed(true)
                 .build();
 

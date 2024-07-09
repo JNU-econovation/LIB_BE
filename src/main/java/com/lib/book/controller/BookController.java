@@ -51,15 +51,15 @@ public class BookController {
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
-    //메인페이지 ai 요청
-    @PostMapping("recommand/detail/{bookId}")
+    //상세페이지 ai 요청
+    @GetMapping("recommand/detail/{bookId}")
     public ApiResponse<ApiResponse.CustomBody<List<ReadBookMainResponse>>>findDetailAiBook(@PathVariable("bookId") Long bookId){
         List<ReadBookMainResponse> responseList=bookService.findByAiRecommendDetail(bookId);
         return ApiResponseGenerator.success(responseList, HttpStatus.OK);
     }
 
-   //상세페이지 ai 요청
-    @PostMapping("/recommend/main")
+    //메인페이지 ai 요청
+    @GetMapping("/recommend/main")
     public ApiResponse<ApiResponse.CustomBody<List<MainAiRecommendResponse>>>findMainAiBook(){
         Long memberId = 1L;//바꿔야함
         List<MainAiRecommendResponse> responseList=bookService.findByAiRecommendMain(memberId);

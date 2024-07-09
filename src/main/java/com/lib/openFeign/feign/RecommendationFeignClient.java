@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name ="RecommendationFeignClient",url = "http://3.36.55.40:5000")
+@FeignClient(name ="RecommendationFeignClient",url = "http://54.180.143.96:5000")
 public interface RecommendationFeignClient {
     @PostMapping(path = "/recommend")
     AiResponse findAiRecommend(@RequestBody AiRequest reqDto);

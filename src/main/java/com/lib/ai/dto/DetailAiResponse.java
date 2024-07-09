@@ -1,4 +1,4 @@
-package com.lib.book.dto;
+package com.lib.ai.dto;
 
 import com.lib.book.Book;
 import lombok.AllArgsConstructor;

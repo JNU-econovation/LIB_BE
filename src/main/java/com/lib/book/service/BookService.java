@@ -2,10 +2,7 @@ package com.lib.book.service;
 
 import com.lib.book.Book;
 import com.lib.book.BookRepository;
-import com.lib.book.dto.AddBookRequest;
-import com.lib.book.dto.MainAiRecommendResponse;
-import com.lib.book.dto.ReadBookDetailResponse;
-import com.lib.book.dto.ReadBookMainResponse;
+import com.lib.book.dto.*;
 import com.lib.category.Category;
 import com.lib.category.CategoryRepository;
 import com.lib.openFeign.dto.AiRequest;
@@ -68,6 +65,7 @@ public class BookService {
     //메인페이지 AI책 추천
     public List<MainAiRecommendResponse> findByAiRecommendMain(Long memberId){
         List<String> isbnRequest =bookRepository.findByMemberId(memberId);
+        System.out.println("쿼리들어간 후:"+isbnRequest);
         if (isbnRequest.isEmpty()) {
             throw new IllegalArgumentException("not found" + memberId);
         };
@@ -93,10 +91,10 @@ public class BookService {
     }
     //책 상세 페이지 AI책 추천
     public List<ReadBookMainResponse> findByAiRecommendDetail(Long bookId){
-//        Book book=bookRepository.findById(bookId).orElseThrow(()-> new IllegalArgumentException("not found"+bookId));
-//        String ISBN= book.getISBN();
+        Book book=bookRepository.findById(bookId).orElseThrow(()-> new IllegalArgumentException("not found"+bookId));
+        String ISBN= book.getISBN();
         List<String> list = new ArrayList<>();
-        list.add("9788962625936");
+        list.add(ISBN);
         AiRequest request = new AiRequest(list); //ai에 보낼 isbn리스트 생성 완료
         AiResponse aiResponse= recommendationFeignClient.findAiRecommend(request);//응답
 
@@ -114,6 +112,16 @@ public class BookService {
         return bookInfoList;
 
     }
-    //삭제는 고민(사용자 등록책이 삭제되면 책도 삭제할것인가?)
+
+    //작성기록 조회에서 책정보 불러오기
+    public ReadBookResponse findByBookId(Long id){
+        Book book = bookRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("not found:"+id));
+        ReadBookResponse response = new ReadBookResponse(book);
+        return response;
+    }
+
+
+    //삭제는 x 칼럼 is_deleted를 true로 바꾸는걸로)
 
 }

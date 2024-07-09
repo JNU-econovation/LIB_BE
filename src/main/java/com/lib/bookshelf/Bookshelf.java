@@ -5,6 +5,7 @@ import com.lib.member.Member;
 import com.lib.book.Book;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,4 +28,11 @@ public class Bookshelf extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
+
+    @Builder
+    public Bookshelf(Long bookshelfId, Member member, Book book) {
+        this.bookshelfId = bookshelfId;
+        this.member = member;
+        this.book = book;
+    }
 }

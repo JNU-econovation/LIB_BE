@@ -1,6 +1,8 @@
 package com.lib.record.controller;
 
 import com.lib.book.dto.ReadBookDetailResponse;
+import com.lib.book.dto.ReadBookResponse;
+import com.lib.book.service.BookService;
 import com.lib.record.dto.ReadRecordMainResponse;
 import com.lib.record.dto.ReadRecordResponse;
 import com.lib.record.service.RecordService;
@@ -10,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +21,7 @@ import java.util.List;
 
 public class RecordController {
     private final RecordService recordService;
+    private final BookService bookService;
 
     //(기록페이지) 전체 기록 조회
     @GetMapping("/records/books")
@@ -38,10 +42,29 @@ public class RecordController {
         return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
 
-    //(작성페이지) 책 정보및 기록 내용 조회
-    /*@GetMapping("/records/{bookId}")
-    public ApiResponse<ApiResponse.CustomBody<List<ReadBookDetailResponse>>> findBookDetail(@PathVariable("bookId") Long bookId){
+    // 작성 페이지 책정보 조회
+    @GetMapping("/records/{bookId}")
+    public ApiResponse<ApiResponse.CustomBody<ReadBookResponse>>findBookContent(@PathVariable("bookId") Long bookId){
+        ReadBookResponse response= bookService.findByBookId (bookId);
 
+        return ApiResponseGenerator.success(response, HttpStatus.OK);
     }
-     */
+
+//    // 기록 작성( 책정보 존재)
+//    @PostMapping("/records/{bookId}")
+//    public ResponseEntity<?> addRecordRequest(@PathVariable("bookId") Long bookId){
+//        recordService.RecordS(bookId);
+//        return ApiResponseGenerator.success(HttpStatus.OK);
+//
+//    }
+
+    // 상세 기록 내용 조회
+//    @GetMapping("/records/{recordId}")
+//    public ApiResponse<ApiResponse.CustomBody<List<ReadRecordDetailResponse>>>findBookContent(@PathVariable("recordId") Long recordId){
+//        //서재 아이디를 통해 서재 테이블에서 책과 회원 아이디를 가져옴-> (책) 책 정보를 가져옴/ (기록내용) 기록테이블에서 회원과 책 아이디를 통해 기록 내용을 가져옴(별점, 기록 내용)
+//        //각각 책&기록 내용 추가해줌
+//    }
+
+    // 나의 서재리스트
+    //@GetMapping("/bookshelves")
 }

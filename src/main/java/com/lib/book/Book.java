@@ -39,8 +39,6 @@ public class Book extends BaseEntity {
     @Column(nullable = false)//
     private boolean customed;
 
-    @Column(nullable = false)// 서재 추가 여부
-    private boolean isAdded;
 
     @Column(nullable = true)
     private String ISBN;
@@ -75,9 +73,8 @@ public class Book extends BaseEntity {
 
 
     @Builder
-    public Book(Boolean customed, Boolean isAdded,String ISBN, String bookName, String bookCover, String author, Category category, String publisher,String bookExplain, Integer rating, Integer ratingOfficial){
+    public Book(Boolean customed,String ISBN, String bookName, String bookCover, String author, Category category, String publisher,String bookExplain, Integer rating, Integer ratingOfficial){
         this.customed=customed;
-        this.isAdded=isAdded;
         this.ISBN=ISBN;
         this.bookName=bookName;
         this.bookCover=bookCover;

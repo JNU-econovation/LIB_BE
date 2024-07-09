@@ -50,6 +50,7 @@ public class MemberController {
     //회원가입
     @PostMapping("/members/join")
     public ApiResponse<?> join(@RequestBody MemberRegisterRequest member) {
+
         memberService.save(member);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
