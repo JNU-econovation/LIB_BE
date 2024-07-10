@@ -41,7 +41,7 @@ public class MemberController {
             //return ApiResponseGenerator.fail("Invaild password", HttpStatus.UNAUTHORIZED);
         }
         //토큰 받아서 주는 로직
-        String token=securityService.createToken(loginMember.getId(),(2 * 1000 * 60));
+        String token=securityService.createToken(loginMember.getMemberId(),(2 * 1000 * 60));
 
         LoginResponse loginResponse=new LoginResponse(token);
         return ApiResponseGenerator.success(loginResponse, HttpStatus.OK);

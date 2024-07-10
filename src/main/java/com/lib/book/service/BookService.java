@@ -8,7 +8,9 @@ import com.lib.category.CategoryRepository;
 import com.lib.openFeign.dto.AiRequest;
 import com.lib.openFeign.dto.AiResponse;
 import com.lib.openFeign.feign.RecommendationFeignClient;
+import com.lib.record.RecordRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class BookService {
     private final BookRepository bookRepository;
     private final CategoryRepository categoryRepository;
     private final RecommendationFeignClient recommendationFeignClient;
+    private final RecordRepository recordRepository;
+    private final DataSourceTransactionManagerAutoConfiguration dataSourceTransactionManagerAutoConfiguration;
 
     public List<Book> findAll() {
         return bookRepository.findAll();
@@ -36,12 +40,17 @@ public class BookService {
     }
     // (메인화면) 카테고리별 책 조회
 
-    public List<ReadBookMainResponse> findRandomBooksByCategory(Long categoryId){
+    public List<ReadBookMainResponse> findRandomBooksByCategory(String categoryType){
+        System.out.println("여기에요 categoryType:"+categoryType);
+        Integer categoryId= categoryRepository.findIdByCategory(categoryType);
+        System.out.println("여기에요(categoryId)!:"+categoryId);
        List<Book> bookList = bookRepository.findRandomByCategory(categoryId);
+        System.out.println("여기에요(bookList)!:"+bookList);
         List<ReadBookMainResponse> responseList = bookList.stream()
                 .map(ReadBookMainResponse::new) // Book 객체를 ReadBookMainResponse 객체로 변환
                 .toList();//불변 객체
                 //.collect(Collectors.toList()); -> 값 수정가능
+        System.out.println("여기에요(responseList)!:"+responseList);
         return responseList;
 
     }
@@ -64,6 +73,8 @@ public class BookService {
     }
     //메인페이지 AI책 추천
     public List<MainAiRecommendResponse> findByAiRecommendMain(Long memberId){
+        System.out.println("멤버 아이디:"+memberId);
+
         List<String> isbnRequest =bookRepository.findByMemberId(memberId);
         System.out.println("쿼리들어간 후:"+isbnRequest);
         if (isbnRequest.isEmpty()) {
@@ -95,9 +106,10 @@ public class BookService {
         String ISBN= book.getISBN();
         List<String> list = new ArrayList<>();
         list.add(ISBN);
+        System.out.println("isbn:"+ISBN);
         AiRequest request = new AiRequest(list); //ai에 보낼 isbn리스트 생성 완료
         AiResponse aiResponse= recommendationFeignClient.findAiRecommend(request);//응답
-
+        System.out.println("aiResponse:"+aiResponse);
         List<String> isbnList= aiResponse.getRecommended_isbns();
 
         List<ReadBookMainResponse> bookInfoList = new ArrayList<>();

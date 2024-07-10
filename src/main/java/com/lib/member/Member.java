@@ -23,7 +23,7 @@ public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//AUTO_INCREMENT
     @Column(name=Prefix+"_id", updatable = false)
-    private Long id;
+    private Long memberId;
 
     //참조하는 엔티티의 필드에 매핑
     @OneToMany(mappedBy = Prefix, cascade = CascadeType.MERGE)
@@ -57,8 +57,8 @@ public class Member extends BaseEntity {
 
 
     @Builder
-    public Member(Long id,String memberLoginId, String pw, Category category, Integer resetCycle,Integer goalNumber,String nickname){
-        this.id=id;
+    public Member(Long memberId,String memberLoginId, String pw, Category category, Integer resetCycle,Integer goalNumber,String nickname){
+        this.memberId=memberId;
         this.memberLoginId=memberLoginId;
         this.pw=pw;
         this.category=category;

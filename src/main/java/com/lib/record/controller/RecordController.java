@@ -35,7 +35,7 @@ public class RecordController {
     }
 
     //(메인페이지) 기록히스토리 조회
-    @GetMapping("/rcords/main")
+    @GetMapping("/records/main")
     public ApiResponse<ApiResponse.CustomBody<List<ReadRecordMainResponse>>> findRecordMain(){
         Long memberId = 1L;
         List<ReadRecordMainResponse> response=recordService.findRecordMainBook(memberId);
@@ -53,8 +53,9 @@ public class RecordController {
 //    // 기록 작성( 책정보 존재)
 //    @PostMapping("/records/{bookId}")
 //    public ResponseEntity<?> addRecordRequest(@PathVariable("bookId") Long bookId){
-//        recordService.RecordS(bookId);
-//        return ApiResponseGenerator.success(HttpStatus.OK);
+//        RecordService response=recordService.findRecordMainBook(bookId);
+//
+//        return ApiResponseGenerator.success(response, HttpStatus.OK);
 //
 //    }
 

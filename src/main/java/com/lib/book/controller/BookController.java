@@ -30,9 +30,10 @@ public class BookController {
 
     // (메인화면) 카테고리별 책 조회
     @GetMapping("/books/categorys")
-    public ApiResponse<ApiResponse.CustomBody<List<ReadBookMainResponse>>> findCateBook(@RequestParam("categoryId") Long categoryId){
-
-        List<ReadBookMainResponse> responseList = bookService.findRandomBooksByCategory(categoryId);
+    public ApiResponse<ApiResponse.CustomBody<List<ReadBookMainResponse>>> findCateBook(@RequestParam("categoryType") String categoryType){
+        System.out.println("여기!!--1");
+        List<ReadBookMainResponse> responseList = bookService.findRandomBooksByCategory(categoryType);
+        System.out.println("여기!!--2");
 
         return ApiResponseGenerator.success(responseList, HttpStatus.OK);
     }
@@ -52,7 +53,7 @@ public class BookController {
     }
 
     //상세페이지 ai 요청
-    @GetMapping("recommand/detail/{bookId}")
+    @GetMapping("recommend/detail/{bookId}")
     public ApiResponse<ApiResponse.CustomBody<List<ReadBookMainResponse>>>findDetailAiBook(@PathVariable("bookId") Long bookId){
         List<ReadBookMainResponse> responseList=bookService.findByAiRecommendDetail(bookId);
         return ApiResponseGenerator.success(responseList, HttpStatus.OK);
@@ -63,6 +64,7 @@ public class BookController {
     public ApiResponse<ApiResponse.CustomBody<List<MainAiRecommendResponse>>>findMainAiBook(){
         Long memberId = 1L;//바꿔야함
         List<MainAiRecommendResponse> responseList=bookService.findByAiRecommendMain(memberId);
+        System.out.println("responseList(bookController 속 메인 ai요청):"+responseList);
         return ApiResponseGenerator.success(responseList, HttpStatus.OK);
     }
 

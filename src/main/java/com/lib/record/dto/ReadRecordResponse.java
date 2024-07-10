@@ -19,10 +19,11 @@ public class ReadRecordResponse {
     private String recordContent;
 
     public ReadRecordResponse (Book book, Record record){
+        this.recordId=record.getRecordId();
+        this.bookCover=book.getBookCover();
         this.bookName=book.getBookName();
         this.author=book.getAuthor();
         this.recordContent=record.getRecordContent();
-        this.recordId=record.getRecordId();
     }
 
 
