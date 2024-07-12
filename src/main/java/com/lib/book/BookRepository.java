@@ -17,7 +17,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     // (메인화면) 책 조회
     //쿼리 성능 향상을 위해 추후 보완하기
     @Query(value = "SELECT * FROM book WHERE category_id= :categoryId AND customed = false ORDER BY RAND() LIMIT 12", nativeQuery = true)
-    List<Book> findRandomByCategory(@Param("categoryId") Integer categoryId);
+    List<Book> findRandomByCategory(@Param("categoryId") Long categoryId);
 
     @Query(value = "SELECT * FROM book WHERE customed = false  AND rating_official >= 9.0 ORDER BY RAND() LIMIT 12", nativeQuery = true)
     List<Book> findByBookRating();

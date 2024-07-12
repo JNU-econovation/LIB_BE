@@ -22,6 +22,6 @@ public class ReadBookResponse {
         this.authorCatePub=authorCatePub(book);
     }
     private String authorCatePub(Book book){
-        return String.format("%s|%s|%s",book.getAuthor(), book.getCategory().getCatetoryType(), book.getPublisher());
+        return String.format("%s|%s|%s",book.getAuthor(), book.getCategory().getCategoryType(), book.getPublisher());
     }
 }

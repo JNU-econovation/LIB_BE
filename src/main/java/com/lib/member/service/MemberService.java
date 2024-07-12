@@ -19,7 +19,7 @@ public class MemberService {
     @Transactional//save나 수정하기 등을 할때 필요함 (추가적으로 공부하기)
     //로그인쪽 컨트롤러로 옮겨보기
     public void save(MemberRegisterRequest member) {
-        Category category = categoryRepository.findByCatetoryType(member.getCategory());
+        Category category = categoryRepository.findByCategoryType(member.getCategory());
         Member newMember = Member.builder().memberLoginId(member.getId()).pw(member.getPassword()).nickname(member.getNickname()).category(category).resetCycle(member.getResetCycle()).goalNumber(member.getGoalNumber()).build();
         memberRepository.save(newMember);
     }

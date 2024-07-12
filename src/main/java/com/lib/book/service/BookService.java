@@ -12,11 +12,11 @@ import com.lib.record.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,12 +39,13 @@ public class BookService {
         return response;
     }
     // (메인화면) 카테고리별 책 조회
-
+    @Transactional(readOnly = true)
     public List<ReadBookMainResponse> findRandomBooksByCategory(String categoryType){
         System.out.println("여기에요 categoryType:"+categoryType);
-        Integer categoryId= categoryRepository.findIdByCategory(categoryType);
-        System.out.println("여기에요(categoryId)!:"+categoryId);
-       List<Book> bookList = bookRepository.findRandomByCategory(categoryId);
+        Category category1= categoryRepository.findByCategoryType(categoryType);
+        System.out.println("여기에요(category객체)!:"+category1);
+
+        List<Book> bookList = bookRepository.findRandomByCategory(category1.getCategoryId());
         System.out.println("여기에요(bookList)!:"+bookList);
         List<ReadBookMainResponse> responseList = bookList.stream()
                 .map(ReadBookMainResponse::new) // Book 객체를 ReadBookMainResponse 객체로 변환
@@ -54,7 +55,7 @@ public class BookService {
         return responseList;
 
     }
-
+    @Transactional(readOnly = true)
     // (메인화면) 독자들이 좋아하는 책 조회
     public List<ReadBookMainResponse> findByBookRating(){
         List<Book> bookList = bookRepository.findByBookRating();

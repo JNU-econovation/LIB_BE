@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Service
 public class SecurityService {
-    private static final String SECRET_KEY="sdfsfsdfasdfasasdakfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjsssssssssssssssssssssssss";
+    private static final String SECRET_KEY="dkssudgkptdylibdlqslekdkssudgkptdylibdlqslekdkssudgkptdylibdlqslek";
 
     //로그인 reponse로 같이
     public String createToken(Long id, long expTime) {

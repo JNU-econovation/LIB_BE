@@ -25,6 +25,6 @@ public class ReadBookDetailResponse {
     }
 
     private String authorCate(Book book){
-        return String.format("%s|%s", book.getAuthor(), book.getCategory().getCatetoryType());
+        return String.format("%s|%s", book.getAuthor(), book.getCategory().getCategoryType());
     }
 }

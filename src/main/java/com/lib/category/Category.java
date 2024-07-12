@@ -28,6 +28,6 @@ public class Category extends BaseEntity {
     private List<Book> books=new ArrayList<>();
 
     @Column(name=Prefix+"_type", nullable = false)
-    private String catetoryType;
+    private String categoryType;
 
 }

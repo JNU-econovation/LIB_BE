@@ -31,10 +31,7 @@ public class BookController {
     // (메인화면) 카테고리별 책 조회
     @GetMapping("/books/categorys")
     public ApiResponse<ApiResponse.CustomBody<List<ReadBookMainResponse>>> findCateBook(@RequestParam("categoryType") String categoryType){
-        System.out.println("여기!!--1");
         List<ReadBookMainResponse> responseList = bookService.findRandomBooksByCategory(categoryType);
-        System.out.println("여기!!--2");
-
         return ApiResponseGenerator.success(responseList, HttpStatus.OK);
     }
 
