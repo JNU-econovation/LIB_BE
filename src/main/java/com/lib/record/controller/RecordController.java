@@ -8,6 +8,7 @@ import com.lib.record.dto.ReadRecordResponse;
 import com.lib.record.service.RecordService;
 import com.lib.utils.ApiResponse;
 import com.lib.utils.ApiResponseGenerator;
+import com.lib.utils.JwtRequired;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class RecordController {
     private final BookService bookService;
 
     //(기록페이지) 전체 기록 조회
+    @JwtRequired
     @GetMapping("/records/books")
     public ApiResponse<ApiResponse.CustomBody<List<ReadRecordResponse>>> findRecordWholeBook(){
         Long memberId = 1L;
@@ -35,6 +37,7 @@ public class RecordController {
     }
 
     //(메인페이지) 기록히스토리 조회
+    @JwtRequired
     @GetMapping("/records/main")
     public ApiResponse<ApiResponse.CustomBody<List<ReadRecordMainResponse>>> findRecordMain(){
         Long memberId = 1L;
@@ -43,6 +46,7 @@ public class RecordController {
     }
 
     // 작성 페이지 책정보 조회
+    @JwtRequired
     @GetMapping("/records/{bookId}")
     public ApiResponse<ApiResponse.CustomBody<ReadBookResponse>>findBookContent(@PathVariable("bookId") Long bookId){
         ReadBookResponse response= bookService.findByBookId (bookId);
@@ -51,6 +55,7 @@ public class RecordController {
     }
 
 //    // 기록 작성( 책정보 존재)
+//    @JwtRequired
 //    @PostMapping("/records/{bookId}")
 //    public ResponseEntity<?> addRecordRequest(@PathVariable("bookId") Long bookId){
 //        RecordService response=recordService.findRecordMainBook(bookId);
@@ -61,6 +66,7 @@ public class RecordController {
 
     // 상세 기록 내용 조회
 //    @GetMapping("/records/{recordId}")
+//    @JwtRequired
 //    public ApiResponse<ApiResponse.CustomBody<List<ReadRecordDetailResponse>>>findBookContent(@PathVariable("recordId") Long recordId){
 //        //서재 아이디를 통해 서재 테이블에서 책과 회원 아이디를 가져옴-> (책) 책 정보를 가져옴/ (기록내용) 기록테이블에서 회원과 책 아이디를 통해 기록 내용을 가져옴(별점, 기록 내용)
 //        //각각 책&기록 내용 추가해줌

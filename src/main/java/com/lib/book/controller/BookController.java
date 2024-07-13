@@ -7,6 +7,7 @@ import com.lib.book.dto.ReadBookMainResponse;
 import com.lib.book.service.BookService;
 import com.lib.utils.ApiResponse;
 import com.lib.utils.ApiResponseGenerator;
+import com.lib.utils.JwtRequired;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,8 @@ public class BookController {
         List<ReadBookMainResponse> responseList = bookService.findByBookRating();
         return ApiResponseGenerator.success(responseList, HttpStatus.OK);
     }
-
     //책 정보 추가 메서드(create)(기록할때 같이 들어가야함)
+    @JwtRequired
     @PostMapping("/records")
     public ResponseEntity<?> addBookRequest(@RequestBody AddBookRequest book){
         bookService.save(book);
@@ -57,6 +58,7 @@ public class BookController {
     }
 
     //메인페이지 ai 요청
+    @JwtRequired
     @GetMapping("/recommend/main")
     public ApiResponse<ApiResponse.CustomBody<List<MainAiRecommendResponse>>>findMainAiBook(){
         Long memberId = 1L;//바꿔야함

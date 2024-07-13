@@ -23,6 +23,3 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL5Dialect  # MySQL 방언 추가
     defer-datasource-initialization: true
-custom:
-  jwt:
-    secret:

@@ -24,9 +24,9 @@ public class RecordService {
     //책 아이디 리스트를 반복문으로 돌려서 (책 테이블)'제목', '커버','저자' 값을 가져옴
     public List<ReadRecordResponse> findRecordWholeBook(Long memberId){
 
-        System.out.println("기록페이지 전체기록 리스트 before: "+memberId);
+//        System.out.println("기록페이지 전체기록 리스트 before: "+memberId);
         List<Record> recordList =recordRepository.findByMemberId(memberId);
-        System.out.println("기록페이지 전체기록 리스트 after: "+recordList);
+//        System.out.println("기록페이지 전체기록 리스트 after: "+recordList);
         if (recordList.isEmpty()){
             throw new IllegalArgumentException("not found"+memberId);
         }
@@ -56,7 +56,7 @@ public class RecordService {
         for (Record record : recordList) {
             Book eachBook = bookRepository.findAllBooks(record.getBook().getBookId()).orElseThrow();
             ReadRecordMainResponse response =new ReadRecordMainResponse(eachBook, record);
-            System.out.println("여기에요!!-----------" + response);
+//            System.out.println("여기에요!!-----------" + response);
             responseList.add(response);
         }
         return responseList;

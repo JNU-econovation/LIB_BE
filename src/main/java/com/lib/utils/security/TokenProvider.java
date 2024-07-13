@@ -12,11 +12,11 @@ import java.security.Key;
 import java.util.Date;
 
 @Service
-public class SecurityService {
+public class TokenProvider {
     private static final String SECRET_KEY="dkssudgkptdylibdlqslekdkssudgkptdylibdlqslekdkssudgkptdylibdlqslek";
 
-    //로그인 reponse로 같이
-    public String createToken(Long id, long expTime) {
+    //토큰 생성
+    public String createToken(String id, long expTime) {
         if (expTime <= 0) {
             throw new RuntimeException("expTime must be greater than 0");
 
@@ -32,7 +32,7 @@ public class SecurityService {
                 .compact();
     }
 
-    //토큰 검정하는 메서드를 만들어 사용
+    //토큰에서 subject(사용자 id) 추출
     public String getSubject(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
@@ -42,4 +42,28 @@ public class SecurityService {
         return claims.getSubject();
     }
 
+    //토큰 검증
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        }catch (Exception e) {
+            return false;
+        }
+    }
+    /*
+    // 토큰 파싱하고 클레임 반환
+    public Claims parseToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+
+     */
 }
