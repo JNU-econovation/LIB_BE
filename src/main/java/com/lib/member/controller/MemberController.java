@@ -22,23 +22,26 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final TokenProvider securityService;
     private final MemberService memberService;
+    private final TokenProvider tokenProvider;
 
     //로그인
     @PostMapping("/members/login")
     public ApiResponse<ApiResponse.CustomBody<LoginResponse>> login(@RequestBody LoginRequest loginRequest) {
-        String id=loginRequest.getId();
-        String pw=loginRequest.getPassword();
-        //멤버 확인
+        String id = loginRequest.getId();
+        String pw = loginRequest.getPassword();
+
+        // 멤버 확인
         Member loginMember = memberRepository.findByMemberLoginId(id);
 
-        boolean passwordMatch=pw.equals(loginRequest.getPassword());
-        if (!passwordMatch) {
-            //return ApiResponseGenerator.fail("Invaild password", HttpStatus.UNAUTHORIZED);
+        // 비밀번호 검증
+        if (loginMember == null || !pw.equals(loginMember.getPw())) {
+            return ApiResponseGenerator.fail("Invalid password", HttpStatus.UNAUTHORIZED, LoginResponse.class);
         }
-        //토큰 받아서 주는 로직
-        String token=securityService.createToken(loginMember.getMemberLoginId(),(720 * 1000 * 60));
 
-        LoginResponse loginResponse=new LoginResponse(token);
+        // 토큰 생성
+        String token = tokenProvider.createToken(loginMember.getMemberId().toString(), (720 * 1000 * 60));
+
+        LoginResponse loginResponse = new LoginResponse(token);
         return ApiResponseGenerator.success(loginResponse, HttpStatus.OK);
     }
 

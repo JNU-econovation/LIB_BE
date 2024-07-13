@@ -17,4 +17,7 @@ public class ApiResponseGenerator {
     public static ApiResponse<ApiResponse.CustomBody> fail(String message, final HttpStatus status) {
         return new ApiResponse<>(new ApiResponse.CustomBody(false,null, new Error(message, status.value())), status);
     }
+    public static <D> ApiResponse<ApiResponse.CustomBody<D>> fail(String message, final HttpStatus status, Class<D> responseType) {
+        return new ApiResponse<>(new ApiResponse.CustomBody<>(false, null, new Error(message, status.value())), status);
+    }
 }

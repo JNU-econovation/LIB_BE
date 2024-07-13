@@ -26,7 +26,7 @@ public class TokenProvider {
         Key signingKey = new SecretKeySpec(secretKeyBytes, signatureAlgorithm.getJcaName());
 
         return Jwts.builder()
-                .setSubject(id.toString())
+                .setSubject(id)
                 .signWith(signingKey, signatureAlgorithm)
                 .setExpiration(new Date(System.currentTimeMillis()+expTime))
                 .compact();

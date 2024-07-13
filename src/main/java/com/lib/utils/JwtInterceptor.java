@@ -29,12 +29,14 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         if (method.isAnnotationPresent(JwtRequired.class)|| handlerMethod.getBeanType().isAnnotationPresent(JwtRequired.class)) {
             String token= request.getHeader("Authorization");
-            if (token == null) {
+            if (token == null|| !tokenProvider.validateToken(token)) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Token");
                 return false;
             }
+            String memberId= tokenProvider.getSubject(token);
+            request.setAttribute("memberId", memberId);
         }
         return true;
-
     }
 }
 
