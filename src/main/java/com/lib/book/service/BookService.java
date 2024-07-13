@@ -5,6 +5,7 @@ import com.lib.book.BookRepository;
 import com.lib.book.dto.*;
 import com.lib.category.Category;
 import com.lib.category.CategoryRepository;
+import com.lib.member.Member;
 import com.lib.openFeign.dto.AiRequest;
 import com.lib.openFeign.dto.AiResponse;
 import com.lib.openFeign.feign.RecommendationFeignClient;
@@ -66,14 +67,14 @@ public class BookService {
     }
 
     //책 정보 추가 메서드(create)(기록할때 같이 들어가야함)
-    public void save(AddBookRequest book){
+    public void save(AddBookRequest book, Member memberId){
         Long categoryId = book.getCategoryId();
         Category category = categoryRepository.findById(categoryId).orElseThrow(()-> new IllegalArgumentException("not found"+categoryId));
         Book bookSave= bookRepository.save(book.toBookEntity(category));
-        book.toRecordEntity(bookSave); //book과 record테이블에 값 넣기
+        book.toRecordEntity(bookSave, memberId); //book과 record테이블에 값 넣기
     }
     //메인페이지 AI책 추천
-    public List<MainAiRecommendResponse> findByAiRecommendMain(Long memberId){
+    public List<MainAiRecommendResponse> findByAiRecommendMain(Member memberId){
         System.out.println("멤버 아이디:"+memberId);
 
         List<String> isbnRequest =bookRepository.findByMemberId(memberId);

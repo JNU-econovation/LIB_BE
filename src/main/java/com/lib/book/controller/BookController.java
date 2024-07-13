@@ -5,6 +5,7 @@ import com.lib.book.dto.MainAiRecommendResponse;
 import com.lib.book.dto.ReadBookDetailResponse;
 import com.lib.book.dto.ReadBookMainResponse;
 import com.lib.book.service.BookService;
+import com.lib.member.Member;
 import com.lib.utils.ApiResponse;
 import com.lib.utils.ApiResponseGenerator;
 import com.lib.utils.JwtRequired;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -45,8 +47,9 @@ public class BookController {
     //책 정보 추가 메서드(create)(기록할때 같이 들어가야함)
     @JwtRequired
     @PostMapping("/records")
-    public ResponseEntity<?> addBookRequest(@RequestBody AddBookRequest book){
-        bookService.save(book);
+    public ResponseEntity<?> addBookRequest(@RequestBody AddBookRequest book, HttpServletRequest request){
+        Member memberId=(Member) request.getAttribute("memberId");
+        bookService.save(book, memberId);
         return ApiResponseGenerator.success(HttpStatus.OK);
     }
 
@@ -60,8 +63,9 @@ public class BookController {
     //메인페이지 ai 요청
     @JwtRequired
     @GetMapping("/recommend/main")
-    public ApiResponse<ApiResponse.CustomBody<List<MainAiRecommendResponse>>>findMainAiBook(){
-        Long memberId = 1L;//바꿔야함
+    public ApiResponse<ApiResponse.CustomBody<List<MainAiRecommendResponse>>>findMainAiBook(HttpServletRequest request){
+        Member memberId=(Member)request.getAttribute("memberId");
+        //Long memberId = 1L;//기존
         List<MainAiRecommendResponse> responseList=bookService.findByAiRecommendMain(memberId);
         System.out.println("responseList(bookController 속 메인 ai요청):"+responseList);
         return ApiResponseGenerator.success(responseList, HttpStatus.OK);

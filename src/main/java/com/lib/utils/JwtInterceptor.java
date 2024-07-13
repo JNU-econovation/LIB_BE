@@ -33,8 +33,16 @@ public class JwtInterceptor implements HandlerInterceptor {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Token");
                 return false;
             }
+
+            //사용자 id추출
             String memberId= tokenProvider.getSubject(token);
+            System.out.println("사용자 id추출!"+memberId);
+            if (memberId == null) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return false;
+            }
             request.setAttribute("memberId", memberId);
+
         }
         return true;
     }

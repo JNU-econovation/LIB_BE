@@ -2,6 +2,7 @@ package com.lib.book;
 
 import com.lib.book.Book;
 import com.lib.category.Category;
+import com.lib.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,7 +37,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
         "    FROM bookshelf " +
         "    WHERE member_id = :memberId " +
         ") AS combined ON b.book_id = combined.book_id", nativeQuery = true)
-List<String> findByMemberId(@Param("memberId")Long memberId);
+List<String> findByMemberId(@Param("memberId") Member memberId);
 
 
     @Query(value = "SELECT b FROM Book b WHERE b.bookId= :bookId")
