@@ -47,7 +47,7 @@
 
 **📃[기능명세서](https://econovation.notion.site/f7be32656ef5442f8a508a1f22d3f58b?v=e6a37cccf2074d009b2880581ff08d84)**
 <br/>
-**📋[ERD 설계](https://different-lychee-3a6.notion.site/ERD-1bef55d6498580a286aee0b86957594)**
+**📋[ERD 설계](https://different-lychee-3a6.notion.site/ERD-1bef55d6498580a286aee0b869575943)**
 <br/>
 **🔗[배포링크]()**
 <br/>
